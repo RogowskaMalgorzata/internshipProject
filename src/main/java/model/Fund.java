@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Fund {
@@ -32,5 +33,9 @@ public class Fund {
 		this.value = value;
 	}
 	
-	
+	public String getParsedDate() {
+		String dateString = new SimpleDateFormat("dd-MM-yyyy").format(date);
+		return dateString;
+		
+	}
 }

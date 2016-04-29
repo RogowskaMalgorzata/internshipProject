@@ -31,18 +31,17 @@ public class FundDAOImpl implements FundDAO{
             
             ps = con.prepareStatement(query);
             ps.setInt(1, fund.getId());
-            java.util.Date myDate = fund.getDate();
-            System.out.println("data java " + myDate);
-            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-
-            System.out.println("data sql " + sqlDate);
+            
+            java.util.Date javaDate = fund.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(javaDate.getTime());
             ps.setDate(2, sqlDate); 
+            
             ps.setDouble(3, fund.getValue());
             
             int out = ps.executeUpdate();
             if(out != 0){
-                System.out.println("Fund saved with id=" + fund.getId());
-            } else System.out.println("Fund save failed with id=" + fund.getId());
+//                System.out.println("Fund saved with id=" + fund.getId());
+            } else {}//System.out.println("Fund save failed with id=" + fund.getId());
         } catch(SQLException e) {
             e.printStackTrace();
         } finally {
@@ -70,7 +69,10 @@ public class FundDAOImpl implements FundDAO{
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
-                fund = new Fund(id, rs.getDate("date"), rs.getDouble("value"));
+            	java.sql.Date sqlDate = rs.getDate("date");
+                java.util.Date javaDate = new java.util.Date(sqlDate.getTime());
+                
+                fund = new Fund(id, javaDate, rs.getDouble("value"));
                 System.out.println("Fund Found:" + fund);
             } else {
                 System.out.println("No Fund found with id=" + id);
@@ -162,7 +164,10 @@ public class FundDAOImpl implements FundDAO{
             rs = ps.executeQuery();
             
             while(rs.next()){
-                Fund fund = new Fund(rs.getInt("id"), rs.getDate("date"), rs.getDouble("value"));
+            	java.sql.Date sqlDate = rs.getDate("date");
+                java.util.Date javaDate = new java.util.Date(sqlDate.getTime());
+            	
+                Fund fund = new Fund(rs.getInt("id"), javaDate, rs.getDouble("value"));
 
                 fundsList.add(fund);
             }
@@ -177,6 +182,7 @@ public class FundDAOImpl implements FundDAO{
                 e.printStackTrace();
             }
         }
+
         return fundsList;
 	}
 
