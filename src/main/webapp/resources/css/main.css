@@ -12,3 +12,42 @@ body {
 	width: 900px;
 	margin: auto;
 }
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li{
+	display: inline;
+	float: left;
+}
+
+.navbar ul li a{
+	font-size: 25px;
+	color: black;
+	display: block;
+    padding: 8px;
+	text-decoration: none;
+}
+
+.navbar ul li a:hover {
+	color: #4BC0C0;
+}
+
+#fromDate:hover {
+	cursor: pointer;
+}
+
+#toDate:hover {
+	cursor: pointer;
+}
+
+.pagination:hover {
+	cursor: pointer;
+}
+
+tr:hover {
+	color: #4BC0C0;
+}

@@ -23,7 +23,7 @@ public class ConvertServiceImpl implements ConvertService{
 		
 		try {
 			String line;
-			buffer = new BufferedReader(new FileReader("C:/Users/Baka/Desktop/data.csv"));
+			buffer = new BufferedReader(new FileReader("../../resources/data.csv"));
 			
 			while ((line = buffer.readLine()) != null) {
 				Fund f = CSVtoArrayList(line);

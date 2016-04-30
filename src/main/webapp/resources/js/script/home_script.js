@@ -61,7 +61,7 @@ $().ready(function() {
 		  valueListFiltered = valueList.slice(from, to + 1);
 
 		  if (from == -1) {
-			  $("#error").text("nie ma danych dla tej daty");
+			  toastr.error('Nie ma danych dla tej daty');
 		  } else {
 			  lineChart.data.labels = dateListFiltered;
 			  lineChart.data.data = valueListFiltered;
@@ -79,7 +79,7 @@ $().ready(function() {
 		  valueListFiltered = valueList.slice(from, to + 1);
 
 		  if (to == -1) {
-			  $("#error").text("nie ma danych dla tej daty");
+			  toastr.error('Nie ma danych dla tej daty');
 		  } else {
 			  lineChart.data.labels = dateListFiltered;
 			  lineChart.data.data = valueListFiltered;

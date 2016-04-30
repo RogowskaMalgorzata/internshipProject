@@ -4,7 +4,7 @@ $().ready(function() {
 	var dateListFiltered = dateList.reverse();
 	var from = 0;
 	var to = dateList.length - 1;
-	var unitAmount; 
+	var unitAmount; //ilosc jednostek 
 	
 	var data = {
 		    labels: dateListFiltered,
@@ -79,7 +79,7 @@ $().ready(function() {
 		  valueListFiltered = valueList.slice(from, to + 1);
 
 		  if (from == -1) {
-			  $("#error").text("nie ma danych dla tej daty");
+			  toastr.error('Nie ma danych dla tej daty');
 		  } else {
 			  lineChart.data.labels = dateListFiltered;
 			  lineChart.data.data = valueListFiltered;
@@ -92,20 +92,19 @@ $().ready(function() {
 	$("#fromDate").datepicker("setDate", dateListFiltered[0]);
 	
 	$( "#toDate" ).datepicker({
-	  dateFormat: "dd-mm-yy",
-	  onSelect: function(dateText) {
-		  to = _.indexOf(dateList, dateText);
-		  dateListFiltered = dateList.slice(from, to + 1);
-		  valueListFiltered = valueList.slice(from, to + 1);
+		dateFormat: "dd-mm-yy",
+		  onSelect: function(dateText) {
+			  to = _.indexOf(dateList, dateText);
+			  dateListFiltered = dateList.slice(from, to + 1);
+			  valueListFiltered = valueList.slice(from, to + 1);
 
-		  if (to == -1) {
-			  $("#error").text("nie ma danych dla tej daty");
-		  } else {
-			  lineChart.data.labels = dateListFiltered;
-			  lineChart.data.data = valueListFiltered;
-			  lineChart.update();
-		  }
-		  
+			  if (to == -1) {
+				  toastr.error('Nie ma danych dla tej daty');
+			  } else {
+				  lineChart.data.labels = dateListFiltered;
+				  lineChart.data.data = valueListFiltered;
+				  lineChart.update();
+			  }
 		  compare();
 	  }
 	});
@@ -116,6 +115,8 @@ $().ready(function() {
 		var unitVal = valueListFiltered[0];
 		unitAmount = investment / unitVal;
 		$("#units").text("Dysponujesz " + unitAmount + " jednostkami");
+		
+		//dla funduszu
 		lineChart.data.datasets[0].data = _.map(valueListFiltered, function(el) {
 			return el * unitAmount;
 		});
@@ -123,6 +124,7 @@ $().ready(function() {
 		var percent = (parseFloat($("#percent").val()) / 100) / 365;
 		var tmp = investment;
 		
+		//dla lokaty
 		lineChart.data.datasets[1].data = _.map(valueListFiltered, function(el) {
 			tmp = tmp +  investment * percent;
 			return  tmp;

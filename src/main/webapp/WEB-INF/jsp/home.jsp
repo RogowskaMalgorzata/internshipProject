@@ -12,10 +12,6 @@
 	var dateList = [];
 	var valueList = [];
 	<c:forEach var="fund" items="${fundList}">
-		var item = {};
-		item.date = "${fund.getParsedDate()}";
-		item.value = "${fund.getValue()}";
-		fundList.push( item );
 		dateList.push("${fund.getParsedDate()}");
 		valueList.push("${fund.getValue()}");
 	</c:forEach>
@@ -27,21 +23,28 @@
 <script src="<c:url value="/resources/js/Chart.js/dist/Chart.min.js" />"></script>
 <script src="<c:url value="/resources/js/datatable.jquery.min.js" />"></script>
 <script src="<c:url value="/resources/js/datatable.min.js" />"></script>
+<script src="<c:url value="/resources/js/toastr.min.js" />"></script>
 <script src="<c:url value="/resources/js/script/home_script.js" />"></script>
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/themes/dark-hive/jquery-ui.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/themes/dark-hive/theme.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/datatable-bootstrap.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/toastr.min.css" />" rel="stylesheet">
 </head>
 <body>
+	<div class="navbar">
+		<ul>
+		  <li><a href="http://tabiapp.azurewebsites.net/">Home</a></li>
+		  <li><a href="http://tabiapp.azurewebsites.net/compare">Compare</a></li>
+		</ul> 
+	</div>
 	<h1>Kurs giełdowy funduszu inwestycyjnego</h1>
 	<h2>Zmiana wartości jednostki</h2>
 	<div id="chartWrapper">
 		<h4>Proszę wybrać zakres dat:</h4>
 		<input id="fromDate" type="text" placeholder="Proszę wybrać datę początkową" />
 		<input id="toDate" type="text" placeholder="Proszę wybrać datę końcową" />
-		<label id="error"></label>
 		
 		<div class="canvas-holder">
 			<canvas id="lineChart" ></canvas>
