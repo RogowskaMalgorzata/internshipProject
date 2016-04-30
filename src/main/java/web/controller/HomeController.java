@@ -31,7 +31,7 @@ public class HomeController {
 //		for (Fund fund : fList) {
 //			fundDAO.save(fund);
 //		}
-		
+//		
 		List<Fund> fundList = fundDAO.getAll();
 		model.addAttribute("fundList", fundList);
 		

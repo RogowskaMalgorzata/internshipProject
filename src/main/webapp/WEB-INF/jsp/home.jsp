@@ -25,10 +25,14 @@
 <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery-ui-1.11.4.custom/jquery-ui.min.js" />"></script>
 <script src="<c:url value="/resources/js/Chart.js/dist/Chart.min.js" />"></script>
+<script src="<c:url value="/resources/js/datatable.jquery.min.js" />"></script>
+<script src="<c:url value="/resources/js/datatable.min.js" />"></script>
 <script src="<c:url value="/resources/js/script/home_script.js" />"></script>
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/themes/dark-hive/jquery-ui.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/themes/dark-hive/theme.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/datatable-bootstrap.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
 <body>
 	<h1>Kurs giełdowy funduszu inwestycyjnego</h1>
@@ -45,7 +49,26 @@
 		
 	</div>
 	<div class="tableWrapper">
-	
+		<div class="paging"></div>
+		<table id="table" class="table">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>data</th>
+					<th>wartość</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="fund" items="${fundList}">
+					<tr>
+						<td>${fund.getId()}</td>
+						<td>${fund.getParsedDate()}</td>
+						<td>${fund.getValue()}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="paging"></div>
 	</div>
 </body>
 </html>

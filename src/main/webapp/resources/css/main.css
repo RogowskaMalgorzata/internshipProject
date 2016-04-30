@@ -1,4 +1,14 @@
+body {
+	text-align: center;
+}
+
 .canvas-holder {
-	width: 500px;
-	height: 500px;
+	width: 900px;
+	height: 450px;
+	margin: auto;
+}
+
+#table {
+	width: 900px;
+	margin: auto;
 }

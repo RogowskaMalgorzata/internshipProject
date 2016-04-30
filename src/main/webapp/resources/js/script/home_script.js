@@ -1,4 +1,11 @@
 $().ready(function() {
+    $('#table').datatable({
+        pageSize: 15,
+        sort: [true, true, true],
+        filters: [false, true, false],
+        filterText: 'Filtruj date'
+    }) ;
+	
 	var valueListFiltered = valueList.reverse();
 	var dateListFiltered = dateList.reverse();
 	var from = 0;
@@ -8,14 +15,9 @@ $().ready(function() {
 		    labels: dateListFiltered,
 		    datasets: [{
 	            label: "Wartość jednostki",
-
 	            // Boolean - if true fill the area under the line
 	            fill: false,
-
-	            // Tension - bezier curve tension of the line. Set to 0 to draw straight lines connecting points
-	            // Used to be called "tension" but was renamed for consistency. The old option name continues to work for compatibility.
 	            lineTension: 0.1,
-
 	            // String - the color to fill the area under the line with if fill is true
 	            backgroundColor: "rgba(75,192,192,0.4)",
 
@@ -125,6 +127,7 @@ $().ready(function() {
 	  }
 	});
 	$("#toDate").datepicker("setDate", dateListFiltered[dateListFiltered.length - 1]);
+	
 	
 });
 
