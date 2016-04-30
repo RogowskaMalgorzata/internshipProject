@@ -1,20 +1,15 @@
 $().ready(function() {
-    $('#table').datatable({
-        pageSize: 15,
-        sort: [true, true, true],
-        filters: [false, true, false],
-        filterText: 'Filtruj date'
-    }) ;
 	
 	var valueListFiltered = valueList.reverse();
 	var dateListFiltered = dateList.reverse();
 	var from = 0;
 	var to = dateList.length - 1;
+	var unitAmount; 
 	
 	var data = {
 		    labels: dateListFiltered,
 		    datasets: [{
-	            label: "Wartość jednostki",
+	            label: "Stan portfela dla funduszu",
 	            fill: false,
 	            lineTension: 0.1,
 	            backgroundColor: "rgba(75,192,192,0.4)",
@@ -34,7 +29,30 @@ $().ready(function() {
 	            pointHitRadius: 10,
 	            data: valueListFiltered,
 	            yAxisID: "y-axis-0",
-	        }]
+	        },
+	        {
+	            label: "Stan portfela dla lokaty",
+	            fill: false,
+	            lineTension: 0.1,
+	            backgroundColor: "rgba(255,192,192,0.4)",
+	            borderColor: "rgba(255,192,192,1)",
+	            borderCapStyle: 'butt',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(255,192,192,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(255,192,192,1)",
+	            pointHoverBorderColor: "rgba(255,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 1,
+	            pointHitRadius: 10,
+	            data: valueListFiltered,
+	            yAxisID: "y-axis-0",
+	        }
+	        ]
 		};
 
 	var ctx = document.getElementById("lineChart").getContext("2d");
@@ -67,6 +85,8 @@ $().ready(function() {
 			  lineChart.data.data = valueListFiltered;
 			  lineChart.update();
 		  }
+		  
+		  compare();
 	  }
 	});
 	$("#fromDate").datepicker("setDate", dateListFiltered[0]);
@@ -85,10 +105,39 @@ $().ready(function() {
 			  lineChart.data.data = valueListFiltered;
 			  lineChart.update();
 		  }
+		  
+		  compare();
 	  }
 	});
 	$("#toDate").datepicker("setDate", dateListFiltered[dateListFiltered.length - 1]);
 	
+	var compare = function() {
+		var investment = parseInt($("#investment").val());
+		var unitVal = valueListFiltered[0];
+		unitAmount = investment / unitVal;
+		$("#units").text("Dysponujesz " + unitAmount + " jednostkami");
+		lineChart.data.datasets[0].data = _.map(valueListFiltered, function(el) {
+			return el * unitAmount;
+		});
+		
+		var percent = (parseFloat($("#percent").val()) / 100) / 365;
+		var tmp = investment;
+		
+		lineChart.data.datasets[1].data = _.map(valueListFiltered, function(el) {
+			tmp = tmp +  investment * percent;
+			return  tmp;
+		});
+		
+		lineChart.update();
+	};
+	compare();
 	
+	$("#investment").blur(function() {
+		compare();
+	});
+	
+	$("#percent").blur(function() {
+		compare();
+	});
 });
 
